@@ -1,6 +1,14 @@
 ### 前端ui采用：https://github.com/Chanzhaoyu/chatgpt-web 二开  特别鸣谢大佬的模板
 ### 效果可以体验 ： http://www.chosen1.xyz/
 ### 对应后端项目开源地址：https://gitee.com/lixinjiuhao/chatppt-java-web
+##上效果图
+![pc端的聊天效果图](https://gitee.com/lixinjiuhao/chatgpt-java-web/raw/master/image/pc-chat-black.jpg)
+![pc端的黑色背景聊天图](image/pc-chat-black.jpg)
+![pc端的黑白色背景聊天图](image/image/pc-chat-white.jpg)
+![pc端prompt工具图](image/pc-tool.jpg)
+![手机端的黑色背景聊天图](image/phone-chat-black.jpg)
+![手机端的白色背景聊天图](image/phone-chat-white.jpg)
+![手机端的prompt工具图](image/phton-tool.jpg)
 
 ###前端页面入口详解
 
