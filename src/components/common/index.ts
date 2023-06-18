@@ -6,6 +6,6 @@ import Setting from './Setting/index.vue'
 import PromptStore from './PromptStore/index.vue'
 import PoPupDialogs from './PoPupDialogs/index.vue'
 import PromptModel from './PromptModel/index.vue'
-import scrollbar from './scrollbar/index.vue'
 
-export { HoverButton, NaiveProvider, SvgIcon, UserAvatar, Setting, PromptStore ,PoPupDialogs,PromptModel,scrollbar}
+
+export { HoverButton, NaiveProvider, SvgIcon, UserAvatar, Setting, PromptStore ,PoPupDialogs,PromptModel}

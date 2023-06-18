@@ -1,10 +1,10 @@
 <script setup lang='ts'>
-import type { Ref ,watch} from 'vue'
-import { computed, onMounted, onUnmounted, ref ,reactive,defineAsyncComponent} from 'vue'
+import type { Ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, reactive, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { NAutoComplete, NButton, NInput, useDialog, useMessage,NSelect } from 'naive-ui'
+import { NAutoComplete, NButton, NInput, useDialog, useMessage, NSelect } from 'naive-ui'
 import { Message } from './components'
 import { useScroll } from './hooks/useScroll'
 import { useChat } from './hooks/useChat'
@@ -15,13 +15,13 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
-import {useNoticeStore} from "@/store/modules/Popup";
-import {requestNoticeContent} from '@/api/Popup'
-import {NoticeInfo} from "@/store/modules/Popup/helper";
+import { useNoticeStore } from "@/store/modules/Popup";
+import { requestNoticeContent } from '@/api/Popup'
+import { NoticeInfo } from "@/store/modules/Popup/helper";
 const Setting = defineAsyncComponent(() => import('@/components/common/Setting/index.vue'))
 const PoPupDialogs = defineAsyncComponent(() => import('@/components/common/PoPupDialogs/index.vue'))
 import { delCookie } from '@/utils/setCookie'
-import {serviceTypeOptions} from '@/api/ServiceTypeConstant'
+import { serviceTypeOptions } from '@/api/ServiceTypeConstant'
 import { PromptModel } from '@/components/common'
 
 let controller = new AbortController()
@@ -114,15 +114,15 @@ async function onConversation() {
       requestOptions: { prompt: message, options: { ...options } },
     },
   )
-		// 滚动屏幕到最低端
+  // 滚动屏幕到最低端
   scrollToBottom()
 
   try {
     let lastText = ''
     const fetchChatAPIOnce = async () => {
       await fetchChatAPIProcess<Chat.ConversationResponse>({
-				serviceType:serviceType.value,
-        conversationId:uuid,
+        serviceType: serviceType.value,
+        conversationId: uuid,
         prompt: message,
         options,
         signal: controller.signal,
@@ -131,18 +131,18 @@ async function onConversation() {
           const { responseText } = xhr
           // Always process the final line
           // const lastIndex = responseText.lastIndexOf('\n', responseText.length - 2)
-					// console.log(responseText)
+          // console.log(responseText)
           let chunk = responseText
-					if(chunk.indexOf("blueCat-login-expire")>=0){
-              delCookie("blueCat_token")
-              router.push('/login')
-							return
-					}
+          if (chunk.indexOf("user-login-expire") >= 0) {
+            delCookie("user_token")
+            router.push('/login')
+            return
+          }
           // if (lastIndex !== -1)
           //   chunk = responseText.substring(lastIndex)
           try {
             const data = chunk
-						updateChat(
+            updateChat(
               +uuid,
               dataSources.value.length - 1,
               {
@@ -166,7 +166,7 @@ async function onConversation() {
             scrollToBottomIfAtBottom()
           }
           catch (error) {
-						console.log(error)
+            console.log(error)
           }
         },
       })
@@ -260,8 +260,8 @@ async function onRegenerate(index: number) {
     let lastText = ''
     const fetchChatAPIOnce = async () => {
       await fetchChatAPIProcess<Chat.ConversationResponse>({
-				serviceType:serviceType.value,
-				conversationId:uuid,
+        serviceType: serviceType.value,
+        conversationId: uuid,
         prompt: message,
         options,
         signal: controller.signal,
@@ -405,12 +405,12 @@ const searchOptions = computed(() => {
   // else {
   //   return []
   // }
-    return promptTemplate.value.filter((item: { key: string }) => item.key.toLowerCase().includes(prompt.value.substring(1).toLowerCase())).map((obj: { value: any }) => {
-        return {
-            label: obj.value,
-            value: obj.value,
-        }
-    })
+  return promptTemplate.value.filter((item: { key: string }) => item.key.toLowerCase().includes(prompt.value.substring(1).toLowerCase())).map((obj: { value: any }) => {
+    return {
+      label: obj.value,
+      value: obj.value,
+    }
+  })
 })
 
 // value反渲染key
@@ -434,28 +434,28 @@ const buttonDisabled = computed(() => {
 
 
 export interface NoticeState {
-	noticeInfo: NoticeInfo
+  noticeInfo: NoticeInfo
 }
 
 const noticeInfo = computed(() => noticeStore.noticeInfo)
 
 onMounted(() => {
-	loadPopup()
+  loadPopup()
 })
 
 async function loadPopup() {
-	let res = await requestNoticeContent("index")
-	if (res && res.isShow) {
-		// const ck = encry(`lm${data.id}`)
-		noticeInfo.value.title = res.title
-		noticeInfo.value.content = res.content
-		updateNoticeInfo(noticeInfo.value)
-		show.value = true
-	}
+  let res = await requestNoticeContent("index")
+  if (res && res.isShow) {
+    // const ck = encry(`lm${data.id}`)
+    noticeInfo.value.title = res.title
+    noticeInfo.value.content = res.content
+    updateNoticeInfo(noticeInfo.value)
+    show.value = true
+  }
 }
 
 function updateNoticeInfo(options: Partial<NoticeInfo>) {
-	noticeStore.updateNoticeInfo(options)
+  noticeStore.updateNoticeInfo(options)
 }
 
 const footerClass = computed(() => {
@@ -483,49 +483,30 @@ const serviceType = ref("chat_gpt_model3.5")
 
 <template>
   <div class="flex flex-col w-full h-full">
-    <HeaderComponent
-      v-if="isMobile"
-      :using-context="usingContext"
-      @export="handleExport"
-      @toggle-using-context="toggleUsingContext"
-    />
+    <!-- 可选择模式，是否携带历史记录进行发送 -->
+    <HeaderComponent v-if="isMobile" :using-context="usingContext" @export="handleExport"
+      @toggle-using-context="toggleUsingContext" />
     <main class="flex-1 overflow-hidden">
       <div id="scrollRef" ref="scrollRef" class="h-full overflow-hidden overflow-y-auto">
-				<div style="width: 100%;" class="flex items-center justify-center mt-4 text-center text-neutral-300">
-					<span v-if="isMobile" style="width: 20%"></span>
-					<span v-if="!isMobile" style="width: 30%"></span>
-					<div style="width: 100%;" class="flex items-center justify-center ml-4">
-						<span style="color: #999999" ><b>模型</b></span>
-						<NSelect
-							style="width: 140px"
-							v-model:value="serviceType"
-							:key="serviceType"
-							:options="serviceTypeOptions"
-						/>
-					</div>
-					<span v-if="!isMobile" style="width: 30%"></span>
-					<span style="width: 30%;color: #999999" class="flex-shrink-0 w-[100px]"  @click="showUs = true"><b>联系我们</b></span>
-				</div>
-				<PromptModel v-if="!dataSources.length" :visible="true" />
-				<div
-          id="image-wrapper"
-          class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
-          :class="[isMobile ? 'p-2' : 'p-4']"
-        >
-<!--					<div style="position: fixed; width: 60%;height: 20px">-->
+        <!-- <div style="width: 100%;" class="flex items-center justify-center mt-4 text-center text-neutral-300">
+          <span v-if="isMobile" style="width: 20%"></span>
+          <span v-if="!isMobile" style="width: 30%"></span>
+          <div style="width: 100%;" class="flex items-center justify-center ml-4">
+            <span style="color: #999999"><b>模型</b></span>
+            <NSelect style="width: 140px" v-model:value="serviceType" :key="serviceType" :options="serviceTypeOptions" />
+          </div>
+          <span v-if="!isMobile" style="width: 30%"></span>
+
+        </div> -->
+        <PromptModel v-if="!dataSources.length" :visible="true" />
+        <div id="image-wrapper" class="w-full max-w-screen-xl m-auto dark:bg-[#101014]"
+          :class="[isMobile ? 'p-2' : 'p-4']">
+          <!--					<div style="position: fixed; width: 60%;height: 20px">-->
           <template v-if="dataSources.length">
             <div>
-              <Message
-                v-for="(item, index) of dataSources"
-                :key="index"
-                :date-time="item.dateTime"
-                :text="item.text"
-                :inversion="item.inversion"
-                :error="item.error"
-                :loading="item.loading"
-                @regenerate="onRegenerate(index)"
-                @delete="handleDelete(index)"
-              />
+              <Message v-for="(item, index) of dataSources" :key="index" :date-time="item.dateTime" :text="item.text"
+                :inversion="item.inversion" :error="item.error" :loading="item.loading" @regenerate="onRegenerate(index)"
+                @delete="handleDelete(index)" />
               <div class="sticky bottom-0 left-0 flex justify-center">
                 <NButton v-if="loading" type="warning" @click="handleStop">
                   <template #icon>
@@ -548,27 +529,19 @@ const serviceType = ref("chat_gpt_model3.5")
             </span>
           </HoverButton>
 
-<!--					是否带上聊天记录-->
-<!--          <HoverButton v-if="!isMobile" @click="toggleUsingContext">-->
-<!--            <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">-->
-<!--              <SvgIcon icon="ri:chat-history-line" />-->
-<!--            </span>-->
-<!--          </HoverButton>-->
+          <!--					是否带上聊天记录-->
+          <!--          <HoverButton v-if="!isMobile" @click="toggleUsingContext">-->
+          <!--            <span class="text-xl" :class="{ 'text-[#4b9e5f]': usingContext, 'text-[#a8071a]': !usingContext }">-->
+          <!--              <SvgIcon icon="ri:chat-history-line" />-->
+          <!--            </span>-->
+          <!--          </HoverButton>-->
 
 
           <NAutoComplete v-model:value="prompt" :options="searchOptions" :render-label="renderOption">
             <template #default="{ handleInput, handleBlur, handleFocus }">
-              <NInput
-                ref="inputRef"
-                v-model:value="prompt"
-                type="textarea"
-                :placeholder="placeholder"
-                :autosize="{ minRows: 1, maxRows: isMobile ? 4 : 8 }"
-                @input="handleInput"
-                @focus="handleFocus"
-                @blur="handleBlur"
-                @keypress="handleEnter"
-              />
+              <NInput ref="inputRef" v-model:value="prompt" type="textarea" :placeholder="placeholder"
+                :autosize="{ minRows: 1, maxRows: isMobile ? 4 : 8 }" @input="handleInput" @focus="handleFocus"
+                @blur="handleBlur" @keypress="handleEnter" />
             </template>
           </NAutoComplete>
           <NButton type="primary" :disabled="buttonDisabled" @click="handleSubmit">
@@ -582,6 +555,6 @@ const serviceType = ref("chat_gpt_model3.5")
       </div>
     </footer>
   </div>
-	<PoPupDialogs v-if="show" v-model:visible="show" />
-	<Setting v-if="showUs" v-model:visible="showUs" />
+  <PoPupDialogs v-if="show" v-model:visible="show" />
+  <Setting v-if="showUs" v-model:visible="showUs" />
 </template>

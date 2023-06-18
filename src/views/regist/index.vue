@@ -11,11 +11,12 @@ import {
 import { setCookie } from '@/utils/setCookie'
 import encry from '@/utils/md5'
 import { doRegist } from '@/api/user'
-import {scrollbar} from "@/components/common";
+
 
 interface ModelType {
   password: string
   account: string
+  atoken: string
 }
 
 const formRef = ref<any | null>(null)
@@ -34,6 +35,11 @@ const rules = {
     message: '请输入密码',
     trigger: ['input', 'blur'],
   },
+  atoken: {
+    required: true,
+    message: '请输入邀请码',
+    trigger: ['input', 'blur'],
+  },
 }
 
 const handleValidateButtonClick = async (e: MouseEvent) => {
@@ -45,7 +51,7 @@ const handleValidateButtonClick = async (e: MouseEvent) => {
   })
 
   const res = await doRegist(account, encry(password))
-	setCookie('blueCat_token', res.blueCat_token)
+	setCookie('user_token', res.user_token)
 	message.success('注册成功')
 	router.push('/')
 }
@@ -67,32 +73,26 @@ const nInputThemeOverrides: NInputThemeOverrides = {
     border: '1px solid black'
 }
 
-const newsList =  [
-    {
-        name: "登录公告：",
-        detail: "蓝猫AI助手全新上线！关注公众号【蓝猫AI三千问】即可享受ChatGPT带来的智能体验！" +
-            "现在立马【注册账号】登录，优先免费体验最新功能！" +
-            "有任何需求<a href=\"https://mp.weixin.qq.com/s/WxwXPfThFEHjAE7hHyvwoA\" style=\"color: #58a6ff\">点击联系我们</a>!先提的优先实现！",
-    }
-]
+
 
 </script>
 
 <template>
-	<div class="messageBox">
-		<scrollbar :sendVal="newsList"></scrollbar>
-	</div>
+
 
   <div id="login-box">
     <NForm ref="formRef" class="login-form" :model="model" label-placement="left" label-width="80" :rules="rules">
       <div class="login-title">
-        蓝 猫 AI 注 册
+        FUN GPT
       </div>
       <NFormItem label-style="color: black" path="account" label="账  号：">
 					<NInput :theme-overrides="nInputThemeOverrides" v-model:value="model.account" :allow-input="(val) => { return !/[^A-Za-z0-9_@.]/g.test(val) }" maxlength="32" placeholder="请输入邮箱或者手机号" />
       </NFormItem>
       <NFormItem label-style="color: black" path="password" label="密  码：">
         <NInput :theme-overrides="nInputThemeOverrides"  v-model:value="model.password" placeholder="请输入密码" maxLength = "16" type="password" show-password-on="mousedown" @keydown.enter.prevent />
+      </NFormItem>
+      <NFormItem label-style="color: black" path="atoken" label="邀请码：">
+        <NInput :theme-overrides="nInputThemeOverrides"  v-model:value="model.atoken" placeholder="请输入邀请码" maxLength = "16" />
       </NFormItem>
       <NButton class="login-btn" type="primary" @click="handleValidateButtonClick">
         注  册
@@ -113,14 +113,14 @@ const newsList =  [
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('@/assets/back.webp') no-repeat fixed;
+    /* background: url('@/assets/back.webp') no-repeat fixed; */
     @media screen and (min-width: 720px) and (max-width: 1920px) {
         background-size: 100% 100%;
     }
 }
 .login-form{
     width: 25rem;
-    height: 19rem;
+    height: 23rem;
     background-color: aliceblue;
     padding: 2rem;
 		border-radius: 6px;

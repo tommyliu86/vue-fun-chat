@@ -14,10 +14,10 @@ service.interceptors.request.use(
     // const token = useAuthStore().token
     // if (token)
     //   config.headers.Authorization = `Bearer ${token}`
-		let blueCatToken =  VueCookies.get('blueCat_token')
-    if ( blueCatToken){
-			config.headers.blueCat_token =  blueCatToken
-			setCookie('blueCat_token',  blueCatToken)
+		let user_token =  VueCookies.get('user_token')
+    if ( user_token){
+			config.headers.user_token =  user_token
+			setCookie('user_token',  user_token)
 		}
 
     return config

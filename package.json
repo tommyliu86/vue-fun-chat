@@ -1,14 +1,11 @@
 {
-  "name": "BlueCat",
-  "version": "2.11.0",
+  "name": "fungpt",
+  "version": "0.0.1",
   "private": false,
-  "description": "BlueCat",
-  "author": "BlueCat 团队开发",
+  "description": "fungpt",
+  "author": "",
   "keywords": [
-    "BlueCat",
-    "chatgpt",
-    "chatbot",
-    "vue"
+  
   ],
   "scripts": {
     "dev": "vite",
@@ -27,7 +24,7 @@
   "dependencies": {
     "@traptitech/markdown-it-katex": "^3.6.0",
     "@vueuse/core": "^9.13.0",
-    "element-plus": "^2.3.4",
+    "element-plus": "^2.3.6",
     "highlight.js": "^11.7.0",
     "html2canvas": "^1.4.1",
     "js-md5": "^0.7.3",

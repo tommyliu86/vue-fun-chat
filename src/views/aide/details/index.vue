@@ -128,7 +128,7 @@ function changeText(text: string) {
 						<div class="py-2 px-4">
 							<div class="relative flex h-10 items-center">
 								<a class="font-semibold text-black" href="/" style="display: flex; align-items: center;">
-									<img src="@/assets/avatar.jpg" width="140" height="40" style="height: 3rem; width: 3rem" alt="icon"/>
+									<img src="@/assets/ask.png" width="140" height="40" style="height: 3rem; width: 3rem" alt="icon"/>
 									<span style="font-size: 1.5rem;color: rgb(77,78,81); letter-spacing: 0.2rem; margin-left: 1rem;"> 蓝猫AI助手 </span>
 								</a>
 								<div class="ml-auto flex">

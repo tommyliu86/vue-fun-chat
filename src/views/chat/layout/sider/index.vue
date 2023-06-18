@@ -66,11 +66,11 @@ watch(
 
 const theme = computed(() => appStore.theme)
 const themeOptions: { label: string; key: Theme; icon: string }[] = [
-    {
-        label: 'Auto',
-        key: 'auto',
-        icon: 'ri:contrast-line',
-    },
+    // {
+    //     label: 'Auto',
+    //     key: 'auto',
+    //     icon: 'ri:contrast-line',
+    // },
     {
         label: 'Light',
         key: 'light',
@@ -115,22 +115,22 @@ const themeOptions: { label: string; key: Theme; icon: string }[] = [
 				</div>
 
         <div class="flex-1 min-h-0 pb-4 overflow-hidden">
-          <List />
+          <List ></List>
         </div>
 
-<!--				提示词商店-->
-        <div class="p-4">
+				<!-- 提示词商店 -->
+        <!-- <div class="p-4">
 					<NButton block @click="toAide">
 						{{ $t('store.ToolButton') }}
 					</NButton>
           <NButton block @click="show = true">
             {{ $t('store.siderButton') }}
           </NButton>
-        </div>
+        </div> -->
 				<div class="p-1">
 					<!--			设置主题 -->
-					<div class="flex items-center space-x-1" >
-						<span class="flex-shrink-0 w-[100px]">{{ $t('setting.theme') }}</span>
+					<div class="flex justify-center items-center space-x-1" >
+						<span class="flex-shrink-0">{{ $t('setting.theme') }}</span>
 						<template v-for="item of themeOptions" :key="item.key">
 							<NButton
 								size="small"
@@ -144,7 +144,7 @@ const themeOptions: { label: string; key: Theme; icon: string }[] = [
 					</div>
 				</div>
       </main>
-      <Footer />
+      <Footer ></Footer>
     </div>
   </NLayoutSider>
   <template v-if="isMobile">

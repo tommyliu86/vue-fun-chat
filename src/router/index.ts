@@ -31,17 +31,17 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/regist/index.vue'),
   },
 
-	{
-		path: '/aide',
-		name: 'aide',
-		component: () => import('@/views/aide/index.vue'),
-	},
+	// {
+	// 	path: '/aide',
+	// 	name: 'aide',
+	// 	component: () => import('@/views/aide/index.vue'),
+	// },
 
-	{
-		path: '/aide/detail',
-		name: 'aideDetail',
-		component: () => import('@/views/aide/details/index.vue'),
-	},
+	// {
+	// 	path: '/aide/detail',
+	// 	name: 'aideDetail',
+	// 	component: () => import('@/views/aide/details/index.vue'),
+	// },
 
   {
     path: '/404',

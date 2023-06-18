@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { NAvatar } from 'naive-ui'
 import { useUserStore } from '@/store'
-import defaultAvatar from '@/assets/avatar.jpg'
+import defaultAvatar from '@/assets/ask.png'
 import { isString } from '@/utils/is'
 import {UserInfo} from "@/typings/user"
 import {getUserInfo} from "@/api/user"
@@ -26,7 +26,7 @@ const userInfo = computed(() => userStore.userInfo)
     </div>
     <div class="flex-1 min-w-0 ml-2">
       <h2 class="overflow-hidden font-bold text-md text-ellipsis whitespace-nowrap">
-        账号:{{ userInfo.account ?? 'BlueCat' }}
+        账号:{{ userInfo.account ?? 'chatar' }}
       </h2>
     </div>
   </div>

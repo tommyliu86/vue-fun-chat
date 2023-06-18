@@ -28,7 +28,7 @@
 							<div class="relative flex h-10 items-center">
 								<a class="font-semibold text-black" href="/" style="display: flex; align-items: center;">
 									<img
-										src="@/assets/avatar.jpg"
+										src="@/assets/ask.png"
 										width="140"
 										height="40"
 										style="height: 3rem; width: 3rem"
