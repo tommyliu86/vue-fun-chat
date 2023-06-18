@@ -29,7 +29,7 @@ function http<T = any>(
     if (res.data.code === success_code || typeof res.data === 'string'){
 			return res.data.data  // 返回后端的data域的值
 		}
-		ElMessage.error(res.data.msg)
+		ElMessage.error(res.data.msg?res.data.msg:"")
 		return Promise.reject(res.data)
   }
 
@@ -52,7 +52,7 @@ function http<T = any>(
 export function get<T = any>(
   { url, data, method = 'GET', onDownloadProgress, signal, beforeRequest, afterRequest }: HttpOption,
 ): Promise<Response<T>> {
-  return http<T>({
+  return http<Response<T>>({
     url,
     method,
     data,
@@ -66,7 +66,7 @@ export function get<T = any>(
 export function post<T = any>(
   { url, data, method = 'POST', headers, onDownloadProgress, signal, beforeRequest, afterRequest }: HttpOption,
 ): Promise<Response<T>> {
-  return http<T>({
+  return http<Response<T>>({
     url,
     method,
     data,
